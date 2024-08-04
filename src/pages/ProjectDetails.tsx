@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContextProvider";
+import PageHeader from "../layout/PageHeader";
 
 const ProjectDetails = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -38,13 +39,12 @@ const ProjectDetails = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Projekt: {project.name}</h1>
-      <button
-        onClick={addTask}
-        className="mb-4 p-2 bg-green-500 text-white rounded"
-      >
-        Új feladat hozzáadása
-      </button>
+      <PageHeader
+        title={`Projekt: ${project.name}`}
+        onAddClick={addTask}
+        addText="Új feladat hozzáadása"
+      />
+      <h1 className="text-2xl font-bold mb-4"></h1>
       <ul>
         {tasks.map((task) => (
           <li

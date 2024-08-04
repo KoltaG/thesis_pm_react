@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContextProvider";
+import PageHeader from "../layout/PageHeader";
 
 const Dashboard = () => {
   const { state, dispatch } = useAppContext();
@@ -14,13 +15,12 @@ const Dashboard = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Projektmenedzser Dashboard</h1>
-      <button
-        onClick={addProject}
-        className="mb-4 p-2 bg-blue-500 text-white rounded"
-      >
-        Új projekt hozzáadása
-      </button>
+      <PageHeader
+        title="Projektmenedzser Dashboard"
+        onAddClick={addProject}
+        addText="Új projekt hozzáadása"
+      />
+
       <ul>
         {state.projects.map((project) => (
           <Link to={`/project/${project.id}`}>

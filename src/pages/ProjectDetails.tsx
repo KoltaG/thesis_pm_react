@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContextProvider";
 import PageHeader from "../layout/PageHeader";
+import { TaskStatus } from "../context/AppContext";
 
 const ProjectDetails = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -18,15 +19,12 @@ const ProjectDetails = () => {
       id: Date.now(),
       projectId: project?.id || 0,
       name: `Feladat ${tasks.length + 1}`,
-      status: "To Do" as "To Do",
+      status: "To Do" as TaskStatus,
     };
     dispatch({ type: "ADD_TASK", payload: newTask });
   };
 
-  const updateTaskStatus = (
-    taskId: number,
-    status: "To Do" | "In Progress" | "Done"
-  ) => {
+  const updateTaskStatus = (taskId: number, status: TaskStatus) => {
     const updatedTask = state.tasks.find((task) => task.id === taskId);
     if (updatedTask) {
       dispatch({ type: "UPDATE_TASK", payload: { ...updatedTask, status } });

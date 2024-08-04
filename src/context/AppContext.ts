@@ -1,10 +1,12 @@
 import { createContext } from "react";
 
+export type TaskStatus = "To Do" | "In Progress" | "Done";
+
 interface Task {
   id: number;
   projectId: number;
   name: string;
-  status: "To Do" | "In Progress" | "Done";
+  status: TaskStatus;
 }
 
 interface Project {

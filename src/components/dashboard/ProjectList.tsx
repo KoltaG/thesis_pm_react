@@ -1,20 +1,21 @@
+import { Link } from "react-router-dom";
 import { useAppContext } from "../../context/AppContextProvider";
 
 const ProjectList = () => {
   const { state } = useAppContext();
   return (
-    <div className="p-4">
-      <ul>
-        {state.projects.map((project, index) => (
+    <ul>
+      {state.projects.map((project) => (
+        <Link to={`/project/${project.id}`}>
           <li
-            key={index}
+            key={project.id}
             className="mb-2 p-2 bg-white rounded shadow"
           >
             {project.name}
           </li>
-        ))}
-      </ul>
-    </div>
+        </Link>
+      ))}
+    </ul>
   );
 };
 

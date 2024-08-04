@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContextProvider";
 import PageHeader from "../layout/PageHeader";
+import ProjectList from "../components/dashboard/ProjectList";
 
 const Dashboard = () => {
   const { state, dispatch } = useAppContext();
@@ -20,19 +20,7 @@ const Dashboard = () => {
         onAddClick={addProject}
         addText="Új projekt hozzáadása"
       />
-
-      <ul>
-        {state.projects.map((project) => (
-          <Link to={`/project/${project.id}`}>
-            <li
-              key={project.id}
-              className="mb-2 p-2 bg-white rounded shadow"
-            >
-              {project.name}
-            </li>
-          </Link>
-        ))}
-      </ul>
+      <ProjectList />
     </div>
   );
 };

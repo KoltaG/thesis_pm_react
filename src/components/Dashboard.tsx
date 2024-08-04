@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContextProvider";
 
 const Dashboard = () => {
@@ -22,12 +23,14 @@ const Dashboard = () => {
       </button>
       <ul>
         {state.projects.map((project) => (
-          <li
-            key={project.id}
-            className="mb-2 p-2 bg-white rounded shadow"
-          >
-            {project.name}
-          </li>
+          <Link to={`/project/${project.id}`}>
+            <li
+              key={project.id}
+              className="mb-2 p-2 bg-white rounded shadow"
+            >
+              {project.name}
+            </li>
+          </Link>
         ))}
       </ul>
     </div>

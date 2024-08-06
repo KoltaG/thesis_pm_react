@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContextProvider";
 import PageHeader from "../layout/PageHeader";
 import { TaskStatus } from "../context/AppContext";
@@ -6,6 +6,7 @@ import { TaskStatus } from "../context/AppContext";
 const ProjectDetails = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const { state, dispatch } = useAppContext();
+  const navigate = useNavigate();
 
   const project = state.projects.find(
     (p) => p.id === parseInt(projectId || "", 10)
@@ -13,6 +14,11 @@ const ProjectDetails = () => {
   const tasks = state.tasks.filter(
     (task) => task.projectId === parseInt(projectId || "", 10)
   );
+
+  const deleteProject = () => {
+    dispatch({ type: "DELETE_PROJECT", payload: project?.id || 0 });
+    navigate("/"); // Navigate to Dashboard
+  };
 
   const addTask = () => {
     const newTask = {
@@ -25,10 +31,7 @@ const ProjectDetails = () => {
   };
 
   const updateTaskStatus = (taskId: number, status: TaskStatus) => {
-    const updatedTask = state.tasks.find((task) => task.id === taskId);
-    if (updatedTask) {
-      dispatch({ type: "UPDATE_TASK", payload: { ...updatedTask, status } });
-    }
+    dispatch({ type: "UPDATE_TASK_STATUS", payload: { taskId, status } });
   };
 
   if (!project) {
@@ -41,6 +44,7 @@ const ProjectDetails = () => {
         title={`Projekt: ${project.name}`}
         onAddClick={addTask}
         addText="Új feladat hozzáadása"
+        onDeleteClick={deleteProject}
       />
       <h1 className="text-2xl font-bold mb-4"></h1>
       <ul>

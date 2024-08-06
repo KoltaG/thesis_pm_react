@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
+import { useAppContext } from "../context/AppContextProvider";
+import { User } from "../context/AppContext";
 
 const AdminNavbar = () => {
+  const { state } = useAppContext();
+  const user = state.currentUser as User;
   return (
     <div className="h-screen w-64 bg-gray-800 text-white flex flex-col">
-      <h2 className="text-xl font-bold p-4">Admin Panel</h2>
+      <h2 className="text-xl font-bold p-4">
+        {user.role == "PM" ? "PM" : "Dev"} Panel
+      </h2>
       <nav className="flex-1">
         <ul>
           <Link to="/">

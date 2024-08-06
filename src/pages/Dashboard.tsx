@@ -9,14 +9,16 @@ const Dashboard = () => {
     const newProject = {
       id: state.projects.length + 1,
       name: `Projekt ${state.projects.length + 1}`,
+      assignedUsers: [],
     };
+
     dispatch({ type: "ADD_PROJECT", payload: newProject });
   };
 
   return (
     <div className="p-4">
       <PageHeader
-        title="Projektmenedzser Dashboard"
+        title="Dashboard"
         onAddClick={addProject}
         addText="Új projekt hozzáadása"
       />

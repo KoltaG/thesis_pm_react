@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppContext } from "../context/AppContextProvider";
 import PageHeader from "../layout/PageHeader";
-import { TaskStatus } from "../context/AppContext";
 import TaskList from "../components/project/TaskList";
+import { useProjectContext } from "../context/projectContext/ProjectContextProvider";
+import { TaskStatus } from "../context/projectContext/ProjectContext";
 
 const ProjectDetails = () => {
   const { projectId } = useParams<{ projectId: string }>();
-  const { state, dispatch } = useAppContext();
+  const { state, dispatch } = useProjectContext();
   const navigate = useNavigate();
 
   const project = state.projects.find(

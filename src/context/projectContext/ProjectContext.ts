@@ -1,12 +1,5 @@
 import { createContext } from "react";
-import { testUsers } from "../_MOCK/users";
-
-export type Role = "PM" | "Dev";
-export interface User {
-  id: number;
-  name: string;
-  role: Role;
-}
+import { User } from "../userContext/UserContext";
 
 export type TaskStatus = "To Do" | "In Progress" | "Done";
 export interface Task {
@@ -24,24 +17,18 @@ interface Project {
 }
 
 // State
-export interface AppState {
-  currentUser: User | null;
-  users: User[];
+export interface ProjectState {
   projects: Project[];
   tasks: Task[];
 }
 
-export const defaultState: AppState = {
-  currentUser: null,
-  users: testUsers, // Mock Users for development purposes
+export const defaultState: ProjectState = {
   projects: [],
   tasks: [],
 };
 
 // Actions
 export type ActionType =
-  | { type: "SET_CURRENT_USER"; payload: User }
-  | { type: "ADD_USER"; payload: User }
   | { type: "ADD_PROJECT"; payload: Project }
   | { type: "DELETE_PROJECT"; payload: number }
   | { type: "ADD_TASK"; payload: Task }
@@ -52,8 +39,8 @@ export type ActionType =
     };
 
 // Context
-export const AppContext = createContext<{
-  state: AppState;
+export const ProjectContext = createContext<{
+  state: ProjectState;
   dispatch: React.Dispatch<ActionType>;
 }>({
   state: defaultState,

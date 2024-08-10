@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import IconHelper from "../components/common/IconHelper";
-import { useAppContext } from "../context/AppContextProvider";
+import { useUserContext } from "../context/userContext/UserContextProvider";
 
 interface PageHeaderProps {
   title: string;
@@ -19,7 +19,7 @@ const PageHeader = ({
 }: PageHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { state } = useAppContext();
+  const { state } = useUserContext();
   const currentUser = state.currentUser;
 
   return (

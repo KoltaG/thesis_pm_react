@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { useAppContext } from "../context/AppContextProvider";
-import { User } from "../context/AppContext";
+import { useUserContext } from "../context/userContext/UserContextProvider";
+import { User } from "../context/userContext/UserContext";
 
 const AdminNavbar = () => {
-  const { state } = useAppContext();
+  const { state } = useUserContext();
   const user = state.currentUser as User;
   return (
     <div className="h-screen w-64 bg-gray-800 text-white flex flex-col">

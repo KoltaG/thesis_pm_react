@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../context/AppContextProvider";
+import { useUserContext } from "../context/userContext/UserContextProvider";
 
 const Login = () => {
-  const { state, dispatch } = useAppContext();
+  const { state, dispatch } = useUserContext();
   const navigate = useNavigate();
 
   const handleLogin = (userId: number) => {

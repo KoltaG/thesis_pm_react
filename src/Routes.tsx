@@ -3,10 +3,10 @@ import Layout from "./layout/Layout";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProjectDetails from "./pages/ProjectDetails";
-import { useAppContext } from "./context/AppContextProvider";
+import { useUserContext } from "./context/userContext/UserContextProvider";
 
 const AppRoutes = () => {
-  const { state } = useAppContext();
+  const { state } = useUserContext();
   if (!state.currentUser) {
     return <Login />;
   }

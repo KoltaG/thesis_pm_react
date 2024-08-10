@@ -1,9 +1,9 @@
-import { useAppContext } from "../context/AppContextProvider";
 import PageHeader from "../layout/PageHeader";
 import ProjectList from "../components/dashboard/ProjectList";
+import { useProjectContext } from "../context/projectContext/ProjectContextProvider";
 
 const Dashboard = () => {
-  const { state, dispatch } = useAppContext();
+  const { state, dispatch } = useProjectContext();
 
   const addProject = () => {
     const newProject = {

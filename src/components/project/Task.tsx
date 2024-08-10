@@ -1,12 +1,12 @@
-import { Task, TaskStatus } from "../../context/AppContext";
-import { useAppContext } from "../../context/AppContextProvider";
+import { Task, TaskStatus } from "../../context/projectContext/ProjectContext";
+import { useProjectContext } from "../../context/projectContext/ProjectContextProvider";
 
 interface TaskItemProps {
   task: Task;
 }
 
 const TaskItem = ({ task }: TaskItemProps) => {
-  const { dispatch } = useAppContext();
+  const { dispatch } = useProjectContext();
 
   const updateTaskStatus = (taskId: number, status: TaskStatus) => {
     dispatch({ type: "UPDATE_TASK_STATUS", payload: { taskId, status } });

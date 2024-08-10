@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useAppContext } from "../../context/AppContextProvider";
+import { useProjectContext } from "../../context/projectContext/ProjectContextProvider";
 
 const ProjectList = () => {
-  const { state } = useAppContext();
+  const { state } = useProjectContext();
   return (
     <ul>
       {state.projects.map((project) => (

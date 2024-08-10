@@ -20,7 +20,7 @@ export const defaultState: UserState = {
 
 // Actions
 export type ActionType =
-  | { type: "SET_CURRENT_USER"; payload: User }
+  | { type: "SET_CURRENT_USER"; payload: User | null }
   | { type: "ADD_USER"; payload: User };
 
 // Context

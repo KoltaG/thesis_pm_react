@@ -7,6 +7,7 @@ import { useUserContext } from "./context/userContext/UserContextProvider";
 
 const AppRoutes = () => {
   const { state } = useUserContext();
+
   if (!state.currentUser) {
     return <Login />;
   }

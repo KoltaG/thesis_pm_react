@@ -47,7 +47,7 @@ const PageHeader = ({
               {deleteText}
             </button>
           )}
-          {onAddClick && addText && (
+          {onAddClick && addText && currentUser?.role !== "Dev" && (
             <button
               onClick={onAddClick}
               className="p-2 bg-green-500 text-white rounded"

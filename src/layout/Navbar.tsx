@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useUserContext } from "../context/userContext/UserContextProvider";
 import { User } from "../context/userContext/UserContext";
 
-const AdminNavbar = () => {
+const Navbar = () => {
   const { state } = useUserContext();
   const user = state.currentUser as User;
   return (
@@ -22,4 +22,4 @@ const AdminNavbar = () => {
   );
 };
 
-export default AdminNavbar;
+export default Navbar;

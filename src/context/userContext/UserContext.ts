@@ -21,7 +21,8 @@ export const defaultState: UserState = {
 // Actions
 export type ActionType =
   | { type: "SET_CURRENT_USER"; payload: User | null }
-  | { type: "ADD_USER"; payload: User };
+  | { type: "ADD_USER"; payload: User }
+  | { type: "DELETE_USER"; payload: { id: number } };
 
 // Context
 export const UserContext = createContext<{

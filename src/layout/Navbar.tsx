@@ -19,6 +19,11 @@ const Navbar = () => {
           <Link to="/">
             <li className="p-4 hover:bg-gray-700">Dashboard</li>
           </Link>
+          {state.currentUser?.role !== "Dev" && (
+            <Link to="/user-management">
+              <li className="p-4 hover:bg-gray-700">Felhasználók</li>
+            </Link>
+          )}
           <li
             className="p-4 hover:bg-gray-700 cursor-pointer"
             onClick={onLogout}

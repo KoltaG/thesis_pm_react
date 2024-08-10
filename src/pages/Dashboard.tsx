@@ -16,7 +16,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-4">
+    <div>
       <PageHeader
         title="Dashboard"
         onAddClick={addProject}

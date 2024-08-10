@@ -29,7 +29,7 @@ const Layout = () => {
           isNavbarOpen={isNavbarOpen}
           setIsNavbarOpen={setIsNavbarOpen}
         />
-        <main className="flex-1 w-full p-4">
+        <main className="flex-1 w-full p-4 overflow-auto">
           <Outlet />
         </main>
       </div>

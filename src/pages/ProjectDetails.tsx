@@ -41,7 +41,7 @@ const ProjectDetails = () => {
   }
 
   return (
-    <div className="p-4">
+    <div>
       <PageHeader
         title={`Projekt: ${project.name}`}
         onAddClick={addTask}

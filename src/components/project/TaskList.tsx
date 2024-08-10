@@ -1,5 +1,5 @@
 import { Task, TaskStatus } from "../../context/projectContext/ProjectContext";
-import TaskItem from "./Task";
+import TaskItem from "./TaskItem";
 
 interface TaskListProps {
   taskStatus: TaskStatus;

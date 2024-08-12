@@ -1,7 +1,7 @@
 import PageHeader from "../layout/PageHeader";
 import { User } from "../context/userContext/UserContext";
 import { useUserContext } from "../context/userContext/UserContextProvider";
-import UserList from "../components/user/ProjectList";
+import UserList from "../components/user/UserList";
 
 const UserManagement = () => {
   const { state, dispatch } = useUserContext();

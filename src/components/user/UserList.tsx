@@ -25,7 +25,7 @@ const UserList = () => {
               <div className="basis-[100px]">{user.name}</div>
               <div className="font-bold">{user.role}</div>
             </div>
-            <div>
+            <div className="flex items-center gap-4">
               {state.currentUser?.id !== user.id && (
                 <button onClick={() => deleteUser(user.id)}>X</button>
               )}

@@ -6,7 +6,10 @@ const ProjectList = () => {
   return (
     <ul>
       {state.projects.map((project) => (
-        <Link to={`/project/${project.id}`}>
+        <Link
+          to={`/project/${project.id}`}
+          key={project.id}
+        >
           <li
             key={project.id}
             className="mb-2 p-2 bg-white rounded shadow"

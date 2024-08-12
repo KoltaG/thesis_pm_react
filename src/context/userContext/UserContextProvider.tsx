@@ -2,6 +2,7 @@ import { ReactNode, useContext, useReducer } from "react";
 import { userReducer } from "./UserReducer";
 import { defaultState, UserContext } from "./UserContext";
 
+// Context provider for the components
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(userReducer, defaultState);
 
@@ -12,7 +13,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// Custom hook a context használatához
+// Custom hook for the context
 export const useUserContext = () => {
   const context = useContext(UserContext);
   if (!context) {

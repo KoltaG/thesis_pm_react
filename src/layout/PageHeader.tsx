@@ -8,6 +8,7 @@ interface PageHeaderProps {
   addText?: string;
   onDeleteClick?: () => void;
   deleteText?: string;
+  extraActions?: React.ReactNode;
 }
 
 const PageHeader = ({
@@ -16,6 +17,7 @@ const PageHeader = ({
   addText,
   onDeleteClick,
   deleteText = "Törlés",
+  extraActions,
 }: PageHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,6 +41,7 @@ const PageHeader = ({
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">{title}</h1>
         <div className="flex items-center gap-4 mb-4">
+          {extraActions}
           {onDeleteClick && currentUser?.role !== "Dev" && (
             <button
               onClick={onDeleteClick}

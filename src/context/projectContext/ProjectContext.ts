@@ -36,6 +36,14 @@ export type ActionType =
   | {
       type: "UPDATE_TASK_STATUS";
       payload: { taskId: number; status: "To Do" | "In Progress" | "Done" };
+    }
+  | {
+      type: "ASSIGN_USER_TO_PROJECT";
+      payload: { projectId: number; userId: number };
+    }
+  | {
+      type: "UNASSIGN_USER_FROM_PROJECT";
+      payload: { projectId: number; userId: number };
     };
 
 // Context

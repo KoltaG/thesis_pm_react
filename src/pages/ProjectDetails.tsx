@@ -3,11 +3,15 @@ import PageHeader from "../layout/PageHeader";
 import TaskList from "../components/project/TaskList";
 import { useProjectContext } from "../context/projectContext/ProjectContextProvider";
 import { TaskStatus } from "../context/projectContext/ProjectContext";
+import { useState } from "react";
+import UsersModal from "../components/user/UsersModal";
 
 const ProjectDetails = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const { state, dispatch } = useProjectContext();
   const navigate = useNavigate();
+
+  const [isUsersOpen, setIsUsersOpen] = useState(false);
 
   const project = state.projects.find(
     (p) => p.id === parseInt(projectId || "", 10)
@@ -40,6 +44,17 @@ const ProjectDetails = () => {
     return <div>Projekt nem található.</div>;
   }
 
+  const RenderOpenUsers = (): React.ReactNode => {
+    return (
+      <button
+        onClick={() => setIsUsersOpen(true)}
+        className="p-2 bg-blue-500 text-white rounded"
+      >
+        Felhasználók kezelése
+      </button>
+    );
+  };
+
   return (
     <div>
       <PageHeader
@@ -47,6 +62,7 @@ const ProjectDetails = () => {
         onAddClick={addTask}
         addText="Új feladat hozzáadása"
         onDeleteClick={deleteProject}
+        extraActions={<RenderOpenUsers />}
       />
       <h1 className="text-2xl font-bold mb-4"></h1>
       <div className="flex gap-4">
@@ -63,6 +79,11 @@ const ProjectDetails = () => {
           tasks={doneTasks}
         />
       </div>
+      <UsersModal
+        isOpen={isUsersOpen}
+        setIsOpen={setIsUsersOpen}
+        projectId={project.id}
+      />
     </div>
   );
 };

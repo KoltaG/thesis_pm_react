@@ -1,11 +1,9 @@
-import { UserState } from "../userContext/UserContext";
 import { ActionType, ProjectState } from "./ProjectContext";
 
 // Reducer
 export const projectReducer = (
   state: ProjectState,
-  action: ActionType,
-  userState: UserState
+  action: ActionType
 ): ProjectState => {
   switch (action.type) {
     case "ADD_PROJECT":
@@ -39,39 +37,7 @@ export const projectReducer = (
             : task
         ),
       };
-    case "ASSIGN_USER_TO_PROJECT": {
-      const { projectId, userId } = action.payload;
-      return {
-        ...state,
-        projects: state.projects.map((project) =>
-          project.id === projectId
-            ? {
-                ...project,
-                assignedUsers: [
-                  ...project.assignedUsers,
-                  userState.users.find((user) => user.id === userId)!,
-                ],
-              }
-            : project
-        ),
-      };
-    }
-    case "UNASSIGN_USER_FROM_PROJECT": {
-      const { projectId, userId } = action.payload;
-      return {
-        ...state,
-        projects: state.projects.map((project) =>
-          project.id === projectId
-            ? {
-                ...project,
-                assignedUsers: project.assignedUsers.filter(
-                  (user) => user.id !== userId
-                ),
-              }
-            : project
-        ),
-      };
-    }
+
     default:
       return state;
   }

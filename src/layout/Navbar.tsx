@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import { useUserContext } from "../context/userContext/UserContextProvider";
-import { User } from "../context/userContext/UserContext";
+import { useAuthContext } from "../context/authContext/AuthContext";
+import { User } from "../DTOs/login.response";
 
 const Navbar = () => {
-  const { state, dispatch } = useUserContext();
-  const user = state.currentUser as User;
+  const { state, dispatch } = useAuthContext();
+  const user = state.user as User;
 
   const onLogout = () => {
-    dispatch({ type: "SET_CURRENT_USER", payload: null });
+    dispatch({ type: "LOGOUT" });
   };
   return (
     <div className="h-screen w-64 bg-gray-800 text-white flex flex-col">
@@ -19,7 +19,7 @@ const Navbar = () => {
           <Link to="/">
             <li className="p-4 hover:bg-gray-700">Dashboard</li>
           </Link>
-          {state.currentUser?.role !== "Dev" && (
+          {state.user?.role !== "Dev" && (
             <Link to="/user-management">
               <li className="p-4 hover:bg-gray-700">Felhasználók</li>
             </Link>

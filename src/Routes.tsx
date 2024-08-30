@@ -3,14 +3,14 @@ import Layout from "./layout/Layout";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProjectDetails from "./pages/ProjectDetails";
-import { useUserContext } from "./context/userContext/UserContextProvider";
 import { ProtectedRoute } from "./ProtectedRoute";
 import UserManagement from "./pages/UserManagement";
+import { useAuthContext } from "./context/authContext/AuthContext";
 
 const AppRoutes = () => {
-  const { state } = useUserContext();
+  const { state } = useAuthContext();
 
-  if (!state.currentUser) {
+  if (!state.isLoggedIn) {
     return <Login />;
   }
   return (
@@ -36,7 +36,7 @@ const AppRoutes = () => {
           path="/user-management"
           element={
             <ProtectedRoute
-              isAuthenticated={state.currentUser.role !== "Dev"}
+              isAuthenticated={state.user?.role === "PM"}
               redirectPath="/"
             >
               <UserManagement />

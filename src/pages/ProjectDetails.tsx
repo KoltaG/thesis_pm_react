@@ -5,12 +5,12 @@ import { useProjectContext } from "../context/projectContext/ProjectContextProvi
 import { TaskStatus } from "../context/projectContext/ProjectContext";
 import { useState } from "react";
 import UsersModal from "../components/user/UsersModal";
-import { useUserContext } from "../context/userContext/UserContextProvider";
+import { useAuthContext } from "../context/authContext/AuthContext";
 
 const ProjectDetails = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const { state, dispatch } = useProjectContext();
-  const { state: userState } = useUserContext();
+  const { state: userState } = useAuthContext();
   const navigate = useNavigate();
 
   const [isUsersOpen, setIsUsersOpen] = useState(false);
@@ -64,9 +64,7 @@ const ProjectDetails = () => {
         onAddClick={addTask}
         addText="Új feladat hozzáadása"
         onDeleteClick={deleteProject}
-        extraActions={
-          userState.currentUser?.role !== "Dev" && <RenderOpenUsers />
-        }
+        extraActions={userState.user?.role !== "Dev" && <RenderOpenUsers />}
       />
       <h1 className="text-2xl font-bold mb-4"></h1>
       <div className="flex gap-4">

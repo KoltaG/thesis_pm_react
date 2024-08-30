@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import IconHelper from "../components/common/IconHelper";
-import { useUserContext } from "../context/userContext/UserContextProvider";
+import { useAuthContext } from "../context/authContext/AuthContext";
 
 interface PageHeaderProps {
   title: string;
@@ -21,8 +21,8 @@ const PageHeader = ({
 }: PageHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { state } = useUserContext();
-  const currentUser = state.currentUser;
+  const { state } = useAuthContext();
+  const currentUser = state.user;
 
   return (
     <header className="mb-4">

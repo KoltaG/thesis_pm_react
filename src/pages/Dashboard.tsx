@@ -1,11 +1,11 @@
 import PageHeader from "../layout/PageHeader";
 import ProjectList from "../components/dashboard/ProjectList";
 import { useProjectContext } from "../context/projectContext/ProjectContextProvider";
-import { useUserContext } from "../context/userContext/UserContextProvider";
+import { useAuthContext } from "../context/authContext/AuthContext";
 
 const Dashboard = () => {
   const { state, dispatch } = useProjectContext();
-  const { state: userState } = useUserContext();
+  const { state: userState } = useAuthContext();
 
   const addProject = () => {
     const newProject = {
@@ -21,9 +21,7 @@ const Dashboard = () => {
     <div>
       <PageHeader
         title="Dashboard"
-        onAddClick={
-          userState.currentUser?.role !== "Dev" ? addProject : undefined
-        }
+        onAddClick={userState.user?.role !== "Dev" ? addProject : undefined}
         addText="Új projekt hozzáadása"
       />
       <ProjectList />

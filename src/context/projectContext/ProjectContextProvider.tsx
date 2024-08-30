@@ -6,17 +6,13 @@ import {
   defaultState,
 } from "./ProjectContext";
 import { projectReducer } from "./ProjectReducer";
-import { useUserContext } from "../userContext/UserContextProvider";
 
 // Context provider for the components
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
-  const { state: userState } = useUserContext();
-
   const [state, dispatch] = useReducer(
-    (state: ProjectState, action: ActionType) =>
-      projectReducer(state, action, userState),
+    (state: ProjectState, action: ActionType) => projectReducer(state, action),
     defaultState
-  ); // Passing the userState to the reducer
+  );
 
   return (
     <ProjectContext.Provider value={{ state, dispatch }}>

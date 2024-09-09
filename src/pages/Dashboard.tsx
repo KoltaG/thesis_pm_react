@@ -4,24 +4,20 @@ import { useProjectContext } from "../context/projectContext/ProjectContextProvi
 import { useAuthContext } from "../context/authContext/AuthContext";
 
 const Dashboard = () => {
-  const { state, dispatch } = useProjectContext();
   const { state: userState } = useAuthContext();
+  const { createProject } = useProjectContext();
 
-  const addProject = () => {
-    const newProject = {
-      id: state.projects.length + 1,
-      name: `Projekt ${state.projects.length + 1}`,
-      assignedUsers: [],
-    };
-
-    dispatch({ type: "ADD_PROJECT", payload: newProject });
+  const handleCreateProject = () => {
+    createProject("New Project");
   };
 
   return (
     <div>
       <PageHeader
         title="Dashboard"
-        onAddClick={userState.user?.role !== "Dev" ? addProject : undefined}
+        onAddClick={
+          userState.user?.role !== "Dev" ? handleCreateProject : undefined
+        }
         addText="Új projekt hozzáadása"
       />
       <ProjectList />

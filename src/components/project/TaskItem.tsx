@@ -6,30 +6,30 @@ interface TaskItemProps {
 }
 
 const TaskItem = ({ task }: TaskItemProps) => {
-  const { dispatch } = useProjectContext();
+  const { deleteTask } = useProjectContext();
 
-  const updateTaskStatus = (taskId: number, status: TaskStatus) => {
-    dispatch({ type: "UPDATE_TASK_STATUS", payload: { taskId, status } });
-  };
+  const handleUpdateTaskStatus = (taskId: string, status: TaskStatus) => {};
 
-  const deleteTask = (taskId: number) => {
-    dispatch({ type: "DELETE_TASK", payload: taskId });
+  const handleDeleteTask = (taskId: string) => {
+    deleteTask(taskId);
   };
 
   return (
     <li className={`mb-2 p-2 rounded shadow ${getStatusColor(task.status)}`}>
       <div className="flex items-center justify-between">
         <h4>{task.name}</h4>
-        <button onClick={() => deleteTask(task.id)}>x</button>
+        <button onClick={() => handleDeleteTask(task._id)}>x</button>
       </div>
       <div className="flex gap-2 items-center">
-        <button onClick={() => updateTaskStatus(task.id, "To Do")}>
+        <button onClick={() => handleUpdateTaskStatus(task._id, "To Do")}>
           To Do
         </button>
-        <button onClick={() => updateTaskStatus(task.id, "In Progress")}>
+        <button onClick={() => handleUpdateTaskStatus(task._id, "In Progress")}>
           In Progress
         </button>
-        <button onClick={() => updateTaskStatus(task.id, "Done")}>Done</button>
+        <button onClick={() => handleUpdateTaskStatus(task._id, "Done")}>
+          Done
+        </button>
       </div>
     </li>
   );

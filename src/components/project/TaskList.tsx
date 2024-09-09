@@ -13,7 +13,7 @@ const TaskList = ({ taskStatus, tasks }: TaskListProps) => {
       <ul>
         {tasks.map((task) => (
           <TaskItem
-            key={task.id}
+            key={task._id}
             task={task}
           />
         ))}

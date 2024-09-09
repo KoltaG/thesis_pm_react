@@ -25,9 +25,13 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthContextProvider autoLoginReady={onAutoLoginReady}>
-        <ProjectProvider>
-          {isLoading ? <p>Loading...</p> : <AppRoutes />}
-        </ProjectProvider>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <ProjectProvider>
+            <AppRoutes />
+          </ProjectProvider>
+        )}
       </AuthContextProvider>
     </BrowserRouter>
   );

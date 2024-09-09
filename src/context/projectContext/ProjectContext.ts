@@ -1,56 +1,67 @@
-import { createContext } from "react";
-import { User } from "../userContext/UserContext";
+import React, { createContext, useContext } from "react";
+import { User } from "../../DTOs/login.response";
 
 export type TaskStatus = "To Do" | "In Progress" | "Done";
+
 export interface Task {
-  id: number;
-  projectId: number;
+  _id: string;
+  projectId: string;
   name: string;
-  assignedUserId?: number;
+  assignedUserId?: string;
   status: TaskStatus;
 }
 
-interface Project {
-  id: number;
+export interface Project {
+  _id: string;
   name: string;
   assignedUsers: User[];
-}
-
-// State
-export interface ProjectState {
-  projects: Project[];
   tasks: Task[];
 }
 
+export interface ProjectState {
+  projects: Project[];
+}
+
+// Default state
 export const defaultState: ProjectState = {
   projects: [],
-  tasks: [],
 };
 
-// Actions
+// Define actions
 export type ActionType =
+  | { type: "SET_PROJECTS"; payload: Project[] }
   | { type: "ADD_PROJECT"; payload: Project }
-  | { type: "DELETE_PROJECT"; payload: number }
+  | { type: "DELETE_PROJECT"; payload: string }
   | { type: "ADD_TASK"; payload: Task }
-  | { type: "DELETE_TASK"; payload: number }
+  | { type: "DELETE_TASK"; payload: string }
   | {
       type: "UPDATE_TASK_STATUS";
-      payload: { taskId: number; status: "To Do" | "In Progress" | "Done" };
-    }
-  | {
-      type: "ASSIGN_USER_TO_PROJECT";
-      payload: { projectId: number; userId: number };
-    }
-  | {
-      type: "UNASSIGN_USER_FROM_PROJECT";
-      payload: { projectId: number; userId: number };
+      payload: { taskId: string; status: TaskStatus };
     };
 
-// Context
+// Create the context
 export const ProjectContext = createContext<{
   state: ProjectState;
   dispatch: React.Dispatch<ActionType>;
+  fetchProjects: () => Promise<void>;
+  createProject: (name: string) => Promise<void>;
+  deleteProject: (id: string) => Promise<void>;
+  createTask: (projectId: string, name: string) => Promise<void>;
+  deleteTask: (taskId: string) => Promise<void>;
 }>({
   state: defaultState,
   dispatch: () => null,
+  fetchProjects: async () => {},
+  createProject: async () => {},
+  deleteProject: async () => {},
+  createTask: async () => {},
+  deleteTask: async () => {},
 });
+
+export const useProjectContext = () => {
+  const context = useContext(ProjectContext);
+  if (!context) {
+    throw new Error("useProjectContext must be used within ProjectProvider");
+  }
+  return context;
+};

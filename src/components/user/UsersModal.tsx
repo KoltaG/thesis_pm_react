@@ -1,7 +1,7 @@
 // import UserList from "./UserAssignList";
 
 interface UsersModal {
-  projectId: number;
+  projectId: string;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }

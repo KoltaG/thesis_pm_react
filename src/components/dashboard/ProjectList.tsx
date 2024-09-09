@@ -7,11 +7,11 @@ const ProjectList = () => {
     <ul>
       {state.projects.map((project) => (
         <Link
-          to={`/project/${project.id}`}
-          key={project.id}
+          to={`/project/${project._id}`}
+          key={project._id}
         >
           <li
-            key={project.id}
+            key={project._id}
             className="mb-2 p-2 bg-white rounded shadow"
           >
             {project.name}

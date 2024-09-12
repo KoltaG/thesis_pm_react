@@ -6,9 +6,11 @@ interface TaskItemProps {
 }
 
 const TaskItem = ({ task }: TaskItemProps) => {
-  const { deleteTask } = useProjectContext();
+  const { deleteTask, updateTaskStatus } = useProjectContext();
 
-  const handleUpdateTaskStatus = (taskId: string, status: TaskStatus) => {};
+  const handleUpdateTaskStatus = (taskId: string, status: TaskStatus) => {
+    updateTaskStatus(taskId, status);
+  };
 
   const handleDeleteTask = (taskId: string) => {
     deleteTask(taskId);

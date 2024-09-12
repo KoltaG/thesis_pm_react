@@ -1,4 +1,8 @@
-import { Project, Task } from "../../context/projectContext/ProjectContext";
+import {
+  Project,
+  Task,
+  TaskStatus,
+} from "../../context/projectContext/ProjectContext";
 import network from "../network";
 
 class ProjectService {
@@ -107,6 +111,22 @@ class ProjectService {
       await network.delete(`/tasks/${taskId}`);
     } catch (error) {
       console.error("Error deleting task from project", error);
+      throw error;
+    }
+  };
+
+  // Update task status
+  updateTaskStatus = async (
+    taskId: string,
+    status: TaskStatus
+  ): Promise<Task> => {
+    try {
+      const response = await network.patch<Task>(`/tasks/${taskId}`, {
+        status,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error updating task status", error);
       throw error;
     }
   };

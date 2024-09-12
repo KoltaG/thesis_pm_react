@@ -48,6 +48,7 @@ export const ProjectContext = createContext<{
   deleteProject: (id: string) => Promise<void>;
   createTask: (projectId: string, name: string) => Promise<void>;
   deleteTask: (taskId: string) => Promise<void>;
+  updateTaskStatus: (taskId: string, status: TaskStatus) => Promise<void>;
 }>({
   state: defaultState,
   dispatch: () => null,
@@ -56,6 +57,7 @@ export const ProjectContext = createContext<{
   deleteProject: async () => {},
   createTask: async () => {},
   deleteTask: async () => {},
+  updateTaskStatus: async () => {},
 });
 
 export const useProjectContext = () => {

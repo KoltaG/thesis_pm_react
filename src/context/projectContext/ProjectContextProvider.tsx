@@ -1,6 +1,6 @@
 import { ReactNode, useContext, useEffect, useReducer } from "react";
 import { projectReducer } from "./ProjectReducer";
-import { defaultState, ProjectContext } from "./ProjectContext";
+import { defaultState, ProjectContext, TaskStatus } from "./ProjectContext";
 import projectService from "../../utils/services/projectService";
 
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
@@ -30,6 +30,15 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: "ADD_TASK", payload: response });
   };
 
+  // Update a task in a project
+  const updateTaskStatus = async (taskId: string, status: TaskStatus) => {
+    const response = await projectService.updateTaskStatus(taskId, status);
+    dispatch({
+      type: "UPDATE_TASK_STATUS",
+      payload: { taskId, status: response.status },
+    });
+  };
+
   // Delete task
   const deleteTask = async (taskId: string) => {
     await projectService.deleteTaskFromProject(taskId);
@@ -51,6 +60,7 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
         deleteProject,
         createTask,
         deleteTask,
+        updateTaskStatus,
       }}
     >
       {children}

@@ -2,9 +2,12 @@ import { ReactNode, useContext, useEffect, useReducer } from "react";
 import { projectReducer } from "./ProjectReducer";
 import { defaultState, ProjectContext, TaskStatus } from "./ProjectContext";
 import projectService from "../../utils/services/projectService";
+import { useAuthContext } from "../authContext/AuthContext";
 
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(projectReducer, defaultState);
+
+  const { state: authState } = useAuthContext();
 
   // Fetch projects from API
   const fetchProjects = async () => {
@@ -48,7 +51,7 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
   // Use useEffect to fetch projects on load
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [authState.isLoggedIn]);
 
   return (
     <ProjectContext.Provider

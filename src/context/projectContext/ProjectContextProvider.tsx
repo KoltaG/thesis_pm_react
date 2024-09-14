@@ -6,7 +6,6 @@ import { useAuthContext } from "../authContext/AuthContext";
 
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(projectReducer, defaultState);
-
   const { state: authState } = useAuthContext();
 
   // Fetch projects from API
@@ -25,6 +24,24 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
   const deleteProject = async (id: string) => {
     await projectService.deleteProject(id);
     dispatch({ type: "DELETE_PROJECT", payload: id });
+  };
+
+  // Assign a user to a project
+  const assignUserToProject = async (projectId: string, userId: string) => {
+    await projectService.assignUserToProject(projectId, userId);
+    dispatch({
+      type: "ASSIGN_USER_TO_PROJECT",
+      payload: { projectId, userId },
+    });
+  };
+
+  // Unassign a user from a project
+  const unassignUserFromProject = async (projectId: string, userId: string) => {
+    await projectService.unassignUserFromProject(projectId, userId);
+    dispatch({
+      type: "UNASSIGN_USER_FROM_PROJECT",
+      payload: { projectId, userId },
+    });
   };
 
   // Create a new task in a project
@@ -64,6 +81,8 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
         createTask,
         deleteTask,
         updateTaskStatus,
+        assignUserToProject,
+        unassignUserFromProject,
       }}
     >
       {children}

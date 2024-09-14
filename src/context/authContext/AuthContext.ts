@@ -9,7 +9,6 @@ export type AuthState = {
 
 export const AuthHandlers = {
   INIT: "INIT",
-  UPDATE_USER: "UPDATE_USER",
   LOGIN: "LOGIN",
   LOGOUT: "LOGOUT",
   LOADING: "LOADING",

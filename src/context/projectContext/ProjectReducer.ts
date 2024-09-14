@@ -23,6 +23,35 @@ export const projectReducer = (
           (project) => project._id !== action.payload
         ),
       };
+    case "ASSIGN_USER_TO_PROJECT":
+      return {
+        ...state,
+        projects: state.projects.map((project) =>
+          project._id === action.payload.projectId
+            ? {
+                ...project,
+                assignedUserIds: [
+                  ...(project.assignedUserIds ?? []),
+                  action.payload.userId,
+                ],
+              }
+            : project
+        ),
+      };
+    case "UNASSIGN_USER_FROM_PROJECT":
+      return {
+        ...state,
+        projects: state.projects.map((project) =>
+          project._id === action.payload.projectId
+            ? {
+                ...project,
+                assignedUserIds: project.assignedUserIds?.filter(
+                  (userId) => userId !== action.payload.userId
+                ),
+              }
+            : project
+        ),
+      };
     case "ADD_TASK":
       return {
         ...state,
@@ -52,6 +81,7 @@ export const projectReducer = (
           ),
         })),
       };
+
     default:
       return state;
   }

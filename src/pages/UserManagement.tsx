@@ -1,5 +1,5 @@
+import UserList from "../components/user/UserList";
 import PageHeader from "../layout/PageHeader";
-// import UserList from "../components/user/UserList";
 
 const UserManagement = () => {
   // const navigate = useNavigate();
@@ -13,7 +13,7 @@ const UserManagement = () => {
         // onAddClick={addUser}
         addText="Új felhasználó hozzáadása"
       />
-      {/* <UserList /> */}
+      <UserList />
     </div>
   );
 };

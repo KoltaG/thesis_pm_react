@@ -1,5 +1,4 @@
 import React, { createContext, useContext } from "react";
-import { User } from "../../DTOs/login.response";
 
 export type TaskStatus = "To Do" | "In Progress" | "Done";
 
@@ -14,7 +13,7 @@ export interface Task {
 export interface Project {
   _id: string;
   name: string;
-  assignedUsers: User[];
+  assignedUserIds: string[];
   tasks: Task[];
 }
 
@@ -37,6 +36,14 @@ export type ActionType =
   | {
       type: "UPDATE_TASK_STATUS";
       payload: { taskId: string; status: TaskStatus };
+    }
+  | {
+      type: "ASSIGN_USER_TO_PROJECT";
+      payload: { projectId: string; userId: string };
+    }
+  | {
+      type: "UNASSIGN_USER_FROM_PROJECT";
+      payload: { projectId: string; userId: string };
     };
 
 // Create the context
@@ -46,6 +53,8 @@ export const ProjectContext = createContext<{
   fetchProjects: () => Promise<void>;
   createProject: (name: string) => Promise<void>;
   deleteProject: (id: string) => Promise<void>;
+  assignUserToProject: (projectId: string, userId: string) => Promise<void>;
+  unassignUserFromProject: (projectId: string, userId: string) => Promise<void>;
   createTask: (projectId: string, name: string) => Promise<void>;
   deleteTask: (taskId: string) => Promise<void>;
   updateTaskStatus: (taskId: string, status: TaskStatus) => Promise<void>;
@@ -55,6 +64,8 @@ export const ProjectContext = createContext<{
   fetchProjects: async () => {},
   createProject: async () => {},
   deleteProject: async () => {},
+  assignUserToProject: async () => {},
+  unassignUserFromProject: async () => {},
   createTask: async () => {},
   deleteTask: async () => {},
   updateTaskStatus: async () => {},

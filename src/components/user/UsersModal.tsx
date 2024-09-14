@@ -1,4 +1,4 @@
-// import UserList from "./UserAssignList";
+import UserAssignList from "./UserAssignList";
 
 interface UsersModal {
   projectId: string;
@@ -28,7 +28,9 @@ const UsersModal = ({ projectId, isOpen, setIsOpen }: UsersModal) => {
             &times;
           </button>
         </div>
-        <div>{/* <UserList projectId={projectId} /> */}</div>
+        <div>
+          <UserAssignList projectId={projectId} />
+        </div>
       </div>
     </div>
   );

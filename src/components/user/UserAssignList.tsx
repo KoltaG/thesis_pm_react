@@ -1,86 +1,90 @@
-// import { useProjectContext } from "../../context/projectContext/ProjectContextProvider";
-// import { useUserContext } from "../../context/userContext/UserContextProvider";
+import { useProjectContext } from "../../context/projectContext/ProjectContextProvider";
+import { useUserContext } from "../../context/userContext/UserContextProvider";
 
-// interface UserListProps {
-//   projectId: number;
-// }
+interface UserListProps {
+  projectId: string;
+}
 
-// const UserAssignList = ({ projectId }: UserListProps) => {
-//   const { state: userState } = useUserContext();
-//   const { state: projectState, dispatch: projectDispatch } =
-//     useProjectContext();
+const UserAssignList = ({ projectId }: UserListProps) => {
+  const { state: userState } = useUserContext();
+  const {
+    state: projectState,
+    assignUserToProject,
+    unassignUserFromProject,
+  } = useProjectContext();
 
-//   const assignUser = (projectId: number, userId: number) => {
-//     projectDispatch({
-//       type: "ASSIGN_USER_TO_PROJECT",
-//       payload: { projectId, userId },
-//     });
-//   };
+  const handleAssignUser = (projectId: string, userId: string) => {
+    assignUserToProject(projectId, userId);
+  };
 
-//   const unassignUser = (projectId: number, userId: number) => {
-//     projectDispatch({
-//       type: "UNASSIGN_USER_FROM_PROJECT",
-//       payload: { projectId, userId },
-//     });
-//   };
+  const handleUnassignUser = (projectId: string, userId: string) => {
+    unassignUserFromProject(projectId, userId);
+  };
 
-//   const project = projectState.projects.find(
-//     (project) => project.id === projectId
-//   );
+  const project = projectState.projects.find(
+    (project) => project._id === projectId
+  );
 
-//   const assignedUsers = project?.assignedUsers || [];
+  const assignedUsers = userState.users.filter((user) =>
+    project?.assignedUserIds?.some(
+      (assignedUserId) => assignedUserId === user._id
+    )
+  );
 
-//   const unassignedUsers = userState.users.filter(
-//     (user) => !assignedUsers.some((assignedUser) => assignedUser.id === user.id)
-//   );
+  const unassignedUsers = userState.users.filter(
+    (user) =>
+      !project?.assignedUserIds?.some(
+        (assignedUser) => assignedUser === user._id
+      )
+  );
 
-//   return (
-//     <div className="overflow-auto">
-//       <div>
-//         <h3 className="mb-4">Assigned Users</h3>
-//         <ul>
-//           {assignedUsers.map((user) => (
-//             <li
-//               key={user.id}
-//               className="mb-2 p-2 bg-white rounded shadow flex items-center justify-between"
-//             >
-//               <div className="flex items-center gap-4 flex-1">
-//                 <div className="basis-[100px]">{user.name}</div>
-//                 <div className="font-bold">{user.role}</div>
-//               </div>
-//               <div className="flex items-center gap-4">
-//                 <button onClick={() => unassignUser(projectId, user.id)}>
-//                   Unassign
-//                 </button>
-//               </div>
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
+  return (
+    <div className="overflow-auto">
+      <div>
+        <h3 className="mb-4">Assigned Users</h3>
+        <ul>
+          {assignedUsers.map((user) => (
+            <li
+              key={user._id}
+              className="mb-2 p-2 bg-white rounded shadow flex items-center justify-between"
+            >
+              <div className="flex items-center gap-4 flex-1">
+                <div className="basis-[100px]">{user.name}</div>
+                <div className="font-bold">{user.role}</div>
+              </div>
+              <div className="flex items-center gap-4">
+                <button onClick={() => handleUnassignUser(projectId, user._id)}>
+                  Unassign
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-//       <div>
-//         <h3 className="mb-4">Unassigned Users</h3>
-//         <ul>
-//           {unassignedUsers.map((user) => (
-//             <li
-//               key={user.id}
-//               className="mb-2 p-2 bg-white rounded shadow flex items-center justify-between"
-//             >
-//               <div className="flex items-center gap-4 flex-1">
-//                 <div className="basis-[100px]">{user.name}</div>
-//                 <div className="font-bold">{user.role}</div>
-//               </div>
-//               <div className="flex items-center gap-4">
-//                 <button onClick={() => assignUser(projectId, user.id)}>
-//                   Add
-//                 </button>
-//               </div>
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-//     </div>
-//   );
-// };
+      <div>
+        <h3 className="mb-4">Unassigned Users</h3>
+        <ul>
+          {unassignedUsers.map((user) => (
+            <li
+              key={user._id}
+              className="mb-2 p-2 bg-white rounded shadow flex items-center justify-between"
+            >
+              <div className="flex items-center gap-4 flex-1">
+                <div className="basis-[100px]">{user.name}</div>
+                <div className="font-bold">{user.role}</div>
+              </div>
+              <div className="flex items-center gap-4">
+                <button onClick={() => handleAssignUser(projectId, user._id)}>
+                  Add
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-// export default UserAssignList;
+export default UserAssignList;

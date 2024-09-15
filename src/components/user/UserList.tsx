@@ -3,14 +3,16 @@ import { useAuthContext } from "../../context/authContext/AuthContext";
 import { useUserContext } from "../../context/userContext/UserContext";
 
 const UserList = ({}) => {
-  const { state, fetchUsers } = useUserContext();
+  const { state, fetchUsers, deleteUser } = useUserContext();
   const { state: authState } = useAuthContext();
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const handleDeleteUser = (id: string) => {};
+  const handleDeleteUser = (id: string) => {
+    deleteUser(id);
+  };
 
   return (
     <div className="overflow-auto">

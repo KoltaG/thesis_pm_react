@@ -3,11 +3,11 @@ import { useAuthContext } from "../context/authContext/AuthContext";
 import { User } from "../DTOs/login.response";
 
 const Navbar = () => {
-  const { state, dispatch } = useAuthContext();
+  const { state, logout } = useAuthContext();
   const user = state.user as User;
 
   const onLogout = () => {
-    dispatch({ type: "LOGOUT" });
+    logout();
   };
   return (
     <div className="h-screen w-64 bg-gray-800 text-white flex flex-col">

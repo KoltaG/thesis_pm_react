@@ -20,11 +20,11 @@ const ValidationSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  const authContext = useAuthContext();
+  const { tryLogin } = useAuthContext();
 
-  const tryLogin = async (email: string, password: string) => {
+  const loginHandler = async (email: string, password: string) => {
     try {
-      await authContext.tryLogin(email, password);
+      await tryLogin(email, password);
     } catch (error) {
       //toast.error("Az email cím vagy a jelszó helytelen!");
       console.error(error);
@@ -40,7 +40,7 @@ const Login = () => {
           validationSchema={ValidationSchema}
           validateOnBlur
           onSubmit={async (values: Values, { setSubmitting }) => {
-            tryLogin(values.email, values.password), setSubmitting(false);
+            loginHandler(values.email, values.password), setSubmitting(false);
           }}
         >
           {({

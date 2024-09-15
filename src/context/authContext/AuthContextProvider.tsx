@@ -26,8 +26,7 @@ export const AuthContextProvider = ({
       if (access_token && user) {
         if (!tokenExpired(access_token, 60000)) {
           console.log("Access token is valid");
-          //  await updateUser();  // TODO: Check why it gives 401, and if needed
-          //console.log("User updated");
+
           const userString = localStorage.getItem("user");
           const user = userString ? JSON.parse(userString) : null;
           dispatch({
@@ -50,13 +49,9 @@ export const AuthContextProvider = ({
   const tryLogin = async (email: string, password: string) => {
     const response = await authService.postLogin(email, password);
 
-    console.log("response: ", response);
+    let user = response.user;
 
-    const responseData: LoginResponse = response.data;
-
-    let user = responseData.user;
-
-    localStorage.setItem("access_token", responseData.token);
+    localStorage.setItem("access_token", response.token);
     localStorage.setItem("user", JSON.stringify(user));
 
     dispatch({

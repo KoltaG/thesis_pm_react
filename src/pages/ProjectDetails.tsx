@@ -50,7 +50,7 @@ const ProjectDetails = () => {
         onClick={() => setIsUsersOpen(true)}
         className="p-2 bg-blue-500 text-white rounded"
       >
-        Felhasználók kezelése
+        Felhasználók
       </button>
     );
   };

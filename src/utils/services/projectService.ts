@@ -21,7 +21,7 @@ class ProjectService {
   addProject = async (projectName: string): Promise<Project> => {
     try {
       const response = await network.post<Project>(`/projects`, {
-        projectName,
+        name: projectName,
       });
       return response.data;
     } catch (error) {

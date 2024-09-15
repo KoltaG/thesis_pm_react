@@ -67,7 +67,9 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 
   // Use useEffect to fetch projects on load
   useEffect(() => {
-    fetchProjects();
+    if (authState.isLoggedIn) {
+      fetchProjects();
+    }
   }, [authState.isLoggedIn]);
 
   return (

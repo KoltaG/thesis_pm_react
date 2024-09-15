@@ -4,7 +4,7 @@ import { useAuthContext } from "../context/authContext/AuthContext";
 import { tokenExpired } from "../utils/tokenTools";
 
 const useNetwork = () => {
-  const authContext = useAuthContext();
+  const { state, logout } = useAuthContext();
 
   useEffect(() => {
     // Request interceptor
@@ -15,7 +15,7 @@ const useNetwork = () => {
           const accessToken = localStorage.getItem("access_token");
 
           if (accessToken && tokenExpired(accessToken, 60000)) {
-            await authContext.logout();
+            await logout();
             return Promise.reject("No valid refresh token, user logged out.");
           } else if (accessToken) {
             // If the access token is still valid
@@ -37,7 +37,7 @@ const useNetwork = () => {
           if (error.response.status === 401) {
             console.error("Token is no longer valid");
             // Token is no longer valid
-            await authContext.logout();
+            await logout();
           }
           // API unavailable errors
           if (error.response.status > 500) {
@@ -63,7 +63,7 @@ const useNetwork = () => {
       network.interceptors.request.eject(requestInterceptor);
       network.interceptors.response.eject(responseInterceptor);
     };
-  }, [authContext.state, authContext.logout]);
+  }, [state, logout]);
 };
 
 export default useNetwork;

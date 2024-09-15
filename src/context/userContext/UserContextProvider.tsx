@@ -4,6 +4,7 @@ import { defaultState, UserContext } from "./UserContext";
 import { useAuthContext } from "../authContext/AuthContext";
 
 import userService from "../../utils/services/userService";
+import { toast } from "react-toastify";
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(userReducer, defaultState);
@@ -16,6 +17,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       dispatch({ type: "SET_USERS", payload: users });
     } catch (error) {
       console.error("Failed to fetch users:", error);
+      toast.error("Error fetching users.");
     }
   };
 
@@ -24,8 +26,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     try {
       await userService.deleteUser(_id);
       dispatch({ type: "DELETE_USER", payload: _id });
+      toast.success("User deleted successfully!");
     } catch (error) {
       console.error("Failed to delete user:", error);
+      toast.error("Error deleting user.");
     }
   };
 

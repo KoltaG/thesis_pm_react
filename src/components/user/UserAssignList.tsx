@@ -1,5 +1,6 @@
 import { useProjectContext } from "../../context/projectContext/ProjectContextProvider";
 import { useUserContext } from "../../context/userContext/UserContextProvider";
+import UserAssignListItem from "./UserAssignListItem";
 
 interface UserListProps {
   projectId: string;
@@ -39,47 +40,39 @@ const UserAssignList = ({ projectId }: UserListProps) => {
   );
 
   return (
-    <div className="overflow-auto">
-      <div>
-        <h3 className="mb-4">Assigned Users</h3>
-        <ul>
+    <div className="overflow-auto px-1">
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-4 text-gray-700">
+          Assigned Users
+        </h3>
+        <ul className="space-y-2">
           {assignedUsers.map((user) => (
-            <li
+            <UserAssignListItem
               key={user._id}
-              className="mb-2 p-2 bg-white rounded shadow flex items-center justify-between"
-            >
-              <div className="flex items-center gap-4 flex-1">
-                <div className="basis-[100px]">{user.name}</div>
-                <div className="font-bold">{user.role}</div>
-              </div>
-              <div className="flex items-center gap-4">
-                <button onClick={() => handleUnassignUser(projectId, user._id)}>
-                  Unassign
-                </button>
-              </div>
-            </li>
+              user={user}
+              projectId={projectId}
+              isAssigned={true}
+              onAssign={handleAssignUser}
+              onUnassign={handleUnassignUser}
+            />
           ))}
         </ul>
       </div>
 
       <div>
-        <h3 className="mb-4">Unassigned Users</h3>
-        <ul>
+        <h3 className="text-lg font-semibold mb-4 text-gray-700">
+          Unassigned Users
+        </h3>
+        <ul className="space-y-2">
           {unassignedUsers.map((user) => (
-            <li
+            <UserAssignListItem
               key={user._id}
-              className="mb-2 p-2 bg-white rounded shadow flex items-center justify-between"
-            >
-              <div className="flex items-center gap-4 flex-1">
-                <div className="basis-[100px]">{user.name}</div>
-                <div className="font-bold">{user.role}</div>
-              </div>
-              <div className="flex items-center gap-4">
-                <button onClick={() => handleAssignUser(projectId, user._id)}>
-                  Add
-                </button>
-              </div>
-            </li>
+              user={user}
+              projectId={projectId}
+              isAssigned={false}
+              onAssign={handleAssignUser}
+              onUnassign={handleUnassignUser}
+            />
           ))}
         </ul>
       </div>

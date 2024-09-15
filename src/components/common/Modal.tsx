@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 interface ModalProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -10,6 +12,12 @@ const Modal = ({ isOpen, setIsOpen, title, children }: ModalProps) => {
     return;
   }
 
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setIsOpen(false);
+    }
+  });
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div
@@ -20,12 +28,14 @@ const Modal = ({ isOpen, setIsOpen, title, children }: ModalProps) => {
       <div className="bg-white relative rounded-lg shadow-lg p-6 w-full max-w-lg z-10">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-bold text-black">{title}</h3>
-          <button
+
+          <Button
             onClick={() => setIsOpen(false)}
-            className="text-black hover:text-gray-700 text-30 font-extrabold absolute top-2 right-6"
+            variant="text"
+            className="text-2xl absolute top-4 right-4"
           >
             &times;
-          </button>
+          </Button>
         </div>
         <div>{children}</div>
       </div>

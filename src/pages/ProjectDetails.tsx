@@ -3,8 +3,10 @@ import PageHeader from "../layout/PageHeader";
 import TaskList from "../components/project/TaskList";
 import { useProjectContext } from "../context/projectContext/ProjectContextProvider";
 import { useState } from "react";
-import UsersModal from "../components/user/UsersModal";
 import { useAuthContext } from "../context/authContext/AuthContext";
+import Modal from "../components/common/Modal";
+import UserAssignList from "../components/user/UserAssignList";
+import Button from "../components/common/Button";
 
 const ProjectDetails = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -38,7 +40,11 @@ const ProjectDetails = () => {
 
   const handleAddTask = async () => {
     try {
-      await createTask(projectId ?? "", "New Task");
+      await createTask(projectId ?? "", {
+        name: "New Task",
+        description: "Lorem ipsum dolor sit amet consectetur.",
+        status: "To Do",
+      });
     } catch (error) {
       console.error("Failed to delete project:", error);
     }
@@ -46,21 +52,21 @@ const ProjectDetails = () => {
 
   const RenderOpenUsers = (): React.ReactNode => {
     return (
-      <button
+      <Button
         onClick={() => setIsUsersOpen(true)}
-        className="p-2 bg-blue-500 text-white rounded"
+        variant="info"
       >
-        Felhasználók
-      </button>
+        Assigned users
+      </Button>
     );
   };
 
   return (
     <div>
       <PageHeader
-        title={`Projekt: ${project.name}`}
+        title={`Project: ${project.name}`}
         onDeleteClick={handleDeleteProject}
-        addText="Új feladat hozzáadása"
+        addText="Create Task"
         onAddClick={handleAddTask}
         extraActions={userState.user?.role !== "Dev" && <RenderOpenUsers />}
       />
@@ -79,11 +85,13 @@ const ProjectDetails = () => {
           tasks={doneTasks}
         />
       </div>
-      <UsersModal
+      <Modal
         isOpen={isUsersOpen}
         setIsOpen={setIsUsersOpen}
-        projectId={project._id}
-      />
+        title="Project Users"
+      >
+        <UserAssignList projectId={project._id} />
+      </Modal>
     </div>
   );
 };

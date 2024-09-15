@@ -3,6 +3,7 @@ import { projectReducer } from "./ProjectReducer";
 import { defaultState, ProjectContext, TaskStatus } from "./ProjectContext";
 import projectService from "../../utils/services/projectService";
 import { useAuthContext } from "../authContext/AuthContext";
+import { TaskRequest } from "../../DTOs/task.request";
 
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(projectReducer, defaultState);
@@ -45,8 +46,8 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Create a new task in a project
-  const createTask = async (projectId: string, name: string) => {
-    const response = await projectService.addTaskToProject(projectId, name);
+  const createTask = async (projectId: string, task: TaskRequest) => {
+    const response = await projectService.addTaskToProject(projectId, task);
     dispatch({ type: "ADD_TASK", payload: response });
   };
 

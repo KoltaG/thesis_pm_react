@@ -1,4 +1,6 @@
 import React, { createContext, useContext } from "react";
+import { TaskRequest } from "../../DTOs/task.request";
+import { User } from "../../DTOs/login.response";
 
 export type TaskStatus = "To Do" | "In Progress" | "Done";
 
@@ -6,7 +8,8 @@ export interface Task {
   _id: string;
   projectId: string;
   name: string;
-  assignedUserId?: string;
+  description?: string;
+  assignedUser?: User;
   status: TaskStatus;
 }
 
@@ -15,6 +18,8 @@ export interface Project {
   name: string;
   assignedUserIds: string[];
   tasks: Task[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ProjectState {
@@ -55,7 +60,7 @@ export const ProjectContext = createContext<{
   deleteProject: (id: string) => Promise<void>;
   assignUserToProject: (projectId: string, userId: string) => Promise<void>;
   unassignUserFromProject: (projectId: string, userId: string) => Promise<void>;
-  createTask: (projectId: string, name: string) => Promise<void>;
+  createTask: (projectId: string, task: TaskRequest) => Promise<void>;
   deleteTask: (taskId: string) => Promise<void>;
   updateTaskStatus: (taskId: string, status: TaskStatus) => Promise<void>;
 }>({

@@ -5,21 +5,20 @@ import Modal from "../components/common/Modal";
 import NewUserForm from "../components/user/NewUserForm";
 
 const UserManagement = () => {
-  // const navigate = useNavigate();
-
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
 
   return (
     <div>
       <PageHeader
-        title="Felhasználók"
+        title="User Management"
         onAddClick={() => setIsAddUserOpen(true)}
-        addText="Új felhasználó hozzáadása"
+        addText="Add User"
       />
       <UserList />
       <Modal
         isOpen={isAddUserOpen}
         setIsOpen={setIsAddUserOpen}
+        title="Add User"
       >
         <NewUserForm onSuccess={() => setIsAddUserOpen(false)} />
       </Modal>

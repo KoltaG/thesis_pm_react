@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import IconHelper from "../components/common/IconHelper";
 import { useAuthContext } from "../context/authContext/AuthContext";
+import Button from "../components/common/Button";
 
 interface PageHeaderProps {
   title: string;
@@ -16,7 +17,7 @@ const PageHeader = ({
   onAddClick,
   addText,
   onDeleteClick,
-  deleteText = "Törlés",
+  deleteText = "Delete",
   extraActions,
 }: PageHeaderProps) => {
   const navigate = useNavigate();
@@ -27,36 +28,37 @@ const PageHeader = ({
   return (
     <header className="mb-4">
       {location.pathname !== "/" && (
-        <button
-          className="text-black flex items-center gap-2 mb-2"
+        <Button
           onClick={() => navigate(-1)}
+          variant="text"
+          className="!px-0"
         >
           <IconHelper
             icon="arrowUp"
             iconProps={{ className: "-rotate-90 w-6 h-6" }}
           />
-          Vissza
-        </button>
+          Back
+        </Button>
       )}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">{title}</h1>
         <div className="flex items-center gap-4 mb-4">
           {extraActions}
           {onDeleteClick && currentUser?.role !== "Dev" && (
-            <button
+            <Button
               onClick={onDeleteClick}
-              className=" p-2 bg-red-500 text-white rounded"
+              variant="danger"
             >
               {deleteText}
-            </button>
+            </Button>
           )}
           {onAddClick && addText && (
-            <button
+            <Button
               onClick={onAddClick}
-              className="p-2 bg-green-500 text-white rounded"
+              variant="success"
             >
               {addText}
-            </button>
+            </Button>
           )}
         </div>
       </div>

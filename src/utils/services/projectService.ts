@@ -3,6 +3,7 @@ import {
   Task,
   TaskStatus,
 } from "../../context/projectContext/ProjectContext";
+import { TaskRequest } from "../../DTOs/task.request";
 import network from "../network";
 
 class ProjectService {
@@ -90,13 +91,12 @@ class ProjectService {
   // Add a task to a project
   addTaskToProject = async (
     projectId: string,
-    name: string,
-    assignedUserId?: string
+    task: TaskRequest
   ): Promise<Task> => {
     try {
       const response = await network.post<Task>(
         `/projects/${projectId}/tasks`,
-        { name, assignedUserId }
+        { ...task }
       );
       return response.data;
     } catch (error) {

@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useAuthContext } from "../../context/authContext/AuthContext";
 import { useUserContext } from "../../context/userContext/UserContext";
+import Button from "../common/Button";
 
-const UserList = ({}) => {
+const UserList = () => {
   const { state, fetchUsers, deleteUser } = useUserContext();
   const { state: authState } = useAuthContext();
 
@@ -15,26 +16,41 @@ const UserList = ({}) => {
   };
 
   return (
-    <div className="overflow-auto">
-      <div className="mb-4 p-2 py-4 bg-gray-300 rounded shadow flex items-center justify-between">
-        <div className="flex items-center gap-4 flex-1">
-          <div className="basis-[100px]">Név</div>
-          <div className="font-bold">Role</div>
+    <div className="overflow-auto px-4 pb-6 -mx-4">
+      <div className="mb-4 p-3 bg-gray-100 rounded-lg shadow-sm flex items-center justify-between">
+        <div className="flex items-center gap-6 flex-1">
+          <div className="basis-[130px] text-gray-600 font-medium">Name</div>
+          <div className="font-bold text-gray-600">Role</div>
         </div>
       </div>
-      <ul>
+
+      <ul className="space-y-3">
         {state.users.map((user) => (
           <li
             key={user._id}
-            className="mb-2 p-2 bg-white rounded shadow flex items-center justify-between"
+            className="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow flex items-center justify-between"
           >
-            <div className="flex items-center gap-4 flex-1">
-              <div className="basis-[100px]">{user.name}</div>
-              <div className="font-bold">{user.role}</div>
+            <div className="flex items-center gap-6 flex-1">
+              <div className="basis-[130px] text-gray-800 font-medium">
+                {user.name}
+              </div>
+              <div
+                className={`font-bold text-sm ${
+                  user.role === "PM" ? "text-green-600" : "text-blue-600"
+                }`}
+              >
+                {user.role}
+              </div>
             </div>
             <div className="flex items-center gap-4">
               {authState.user?._id !== user._id && (
-                <button onClick={() => handleDeleteUser(user._id)}>X</button>
+                <Button
+                  onClick={() => handleDeleteUser(user._id)}
+                  variant="danger"
+                  className="px-3 py-1 text-sm rounded-md hover:bg-red-50 transition-colors"
+                >
+                  Delete
+                </Button>
               )}
             </div>
           </li>

@@ -8,7 +8,7 @@ interface HeaderProps {
 
 const Header = ({ isNavbarOpen, setIsNavbarOpen }: HeaderProps) => {
   return (
-    <header className="w-full shadow px-4 py-2 flex justify-between items-center space-x-4">
+    <header className="w-full shadow md:rounded-xl bg-white px-4 py-2 flex justify-between items-center space-x-4">
       <button
         className="text-black rounded border p-2 md:hidden"
         onClick={() => setIsNavbarOpen(!isNavbarOpen)}

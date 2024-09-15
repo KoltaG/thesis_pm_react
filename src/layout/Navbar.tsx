@@ -17,18 +17,18 @@ const Navbar = () => {
       <nav className="flex-1">
         <ul>
           <Link to="/">
-            <li className="p-4 hover:bg-gray-700">Dashboard</li>
+            <li className="p-4 hover:bg-gray-700">Projects</li>
           </Link>
           {state.user?.role !== "Dev" && (
             <Link to="/user-management">
-              <li className="p-4 hover:bg-gray-700">Felhasználók</li>
+              <li className="p-4 hover:bg-gray-700">User management</li>
             </Link>
           )}
           <li
             className="p-4 hover:bg-gray-700 cursor-pointer"
             onClick={onLogout}
           >
-            Kijelentkezés
+            Logout
           </li>
           {/* Add more navigation items here */}
         </ul>

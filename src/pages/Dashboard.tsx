@@ -18,7 +18,7 @@ const Dashboard = () => {
         onAddClick={
           userState.user?.role !== "Dev" ? handleCreateProject : undefined
         }
-        addText="Új projekt hozzáadása"
+        addText="Add New Project"
       />
       <ProjectList />
     </div>

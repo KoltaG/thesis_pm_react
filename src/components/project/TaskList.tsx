@@ -8,7 +8,7 @@ interface TaskListProps {
 
 const TaskList = ({ taskStatus, tasks }: TaskListProps) => {
   return (
-    <div className="flex-1 bg-white shadow p-4 rounded">
+    <div className="flex-1 bg-gray-200 shadow p-4 rounded-xl">
       <h3 className="mb-4 font-bold text-xl">{taskStatus}</h3>
       <ul>
         {tasks.map((task) => (

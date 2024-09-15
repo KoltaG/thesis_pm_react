@@ -1,7 +1,9 @@
 import * as Yup from "yup";
 import { useAuthContext } from "../context/authContext/AuthContext";
-import { Formik } from "formik";
+import { Formik, Field, Form } from "formik";
 import { toast } from "react-toastify";
+import CustomInput from "../components/common/CustomInput";
+import Button from "../components/common/Button";
 
 interface Values {
   email: string;
@@ -14,10 +16,8 @@ const initialValues: Values = {
 };
 
 const ValidationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Hibás email formátum!")
-    .required("Kötelező kitölteni!"),
-  password: Yup.string().required("Kötelező kitölteni!"),
+  email: Yup.string().email("Invalid email format!").required("Required!"),
+  password: Yup.string().required("Required!"),
 });
 
 const Login = () => {
@@ -33,50 +33,46 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-8">Login</h1>
-      <div className="flex gap-4">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+          Login
+        </h1>
         <Formik
           initialValues={initialValues}
           validationSchema={ValidationSchema}
           validateOnBlur
           onSubmit={async (values: Values, { setSubmitting }) => {
-            loginHandler(values.email, values.password), setSubmitting(false);
+            await loginHandler(values.email, values.password);
+            setSubmitting(false);
           }}
         >
-          {({
-            values,
-            errors,
-            handleChange,
-            submitForm,
-            isSubmitting,
-            isValid,
-            touched,
-            handleBlur,
-          }) => (
-            <>
-              <input
-                placeholder="E-mail cím"
-                onChange={handleChange("email")}
-                onBlur={handleBlur("email")}
-                value={values.email}
+          {({ isSubmitting, isValid }) => (
+            <Form className="space-y-4">
+              <Field
+                name="email"
                 type="email"
+                label="Email"
+                placeholder="Enter your email"
+                component={CustomInput}
               />
-              <input
-                placeholder="Jelszó"
-                onChange={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
+              <Field
+                name="password"
                 type="password"
+                label="Password"
+                placeholder="Enter your password"
+                component={CustomInput}
               />
 
-              <button
-                onClick={() => submitForm()}
+              <Button
+                type="submit"
                 disabled={!isValid || isSubmitting}
+                onClick={() => {}}
+                className=" justify-center !text-center w-full focus:ring-opacity-50 disabled:opacity-50"
               >
-                Bejelentkezés
-              </button>
-            </>
+                Login
+              </Button>
+            </Form>
           )}
         </Formik>
       </div>

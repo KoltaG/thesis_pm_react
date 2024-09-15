@@ -6,6 +6,7 @@ interface ButtonProps {
   variant?: "success" | "info" | "danger" | "text";
   children: React.ReactNode;
   className?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 const Button = ({
@@ -14,6 +15,7 @@ const Button = ({
   variant = "info",
   children,
   className,
+  type = "button",
 }: ButtonProps) => {
   const baseStyles = `px-4 py-2 rounded font-semibold transition-colors duration-200 flex items-center gap-2`;
   const disabledStyles = `bg-gray-400 text-white cursor-not-allowed`;
@@ -31,6 +33,7 @@ const Button = ({
 
   return (
     <button
+      type={type}
       className={styles}
       onClick={onClick}
       disabled={disabled}

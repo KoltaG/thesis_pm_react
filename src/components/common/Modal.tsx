@@ -27,7 +27,7 @@ const Modal = ({ isOpen, setIsOpen, title, children }: ModalProps) => {
 
       <div className="bg-white relative rounded-lg shadow-lg p-6 w-full max-w-lg z-10">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-bold text-black">{title}</h3>
+          <h3 className="text-xl font-bold text-black">{title}</h3>
 
           <Button
             onClick={() => setIsOpen(false)}

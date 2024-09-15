@@ -21,28 +21,3 @@ export const tokenExpired = (
     return true;
   }
 };
-
-// TODO for remember me functionality
-export const getItemFromStorage = (itemName: string) => {
-  // Try getting the item from localStorage first
-  let item = localStorage.getItem(itemName);
-
-  // If not found in localStorage, try sessionStorage
-  if (!item) {
-    item = sessionStorage.getItem(itemName);
-  }
-
-  return item;
-};
-
-export const setItemInStorage = (
-  itemName: string,
-  itemValue: string,
-  rememberMe: boolean
-) => {
-  if (rememberMe) {
-    localStorage.setItem(itemName, itemValue);
-  } else {
-    sessionStorage.setItem(itemName, itemValue);
-  }
-};

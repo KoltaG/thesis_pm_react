@@ -5,6 +5,7 @@ import useNetwork from "./hooks/useNetwork";
 import { useEffect, useState, useCallback } from "react";
 import { AuthContextProvider } from "./context/authContext/AuthContextProvider";
 import { UserProvider } from "./context/userContext/UserContextProvider";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   useNetwork(); // Set up network listener, see src/hooks/useNetwork.ts
@@ -31,6 +32,7 @@ const App = () => {
           <UserProvider>
             <ProjectProvider>
               <AppRoutes />
+              <ToastContainer />
             </ProjectProvider>
           </UserProvider>
         )}

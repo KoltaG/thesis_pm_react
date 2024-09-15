@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import { AuthContext, initialState } from "./AuthContext";
 import { AuthReducer } from "./AuthReducer";
 import { tokenExpired } from "../../utils/tokenTools";
-import { LoginResponse, User } from "../../DTOs/login.response";
+import { User } from "../../DTOs/login.response";
 import authService from "../../utils/services/authService";
 
 interface AuthContextProviderProps {

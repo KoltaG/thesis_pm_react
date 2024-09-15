@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 import { useAuthContext } from "../context/authContext/AuthContext";
 import { Formik } from "formik";
+import { toast } from "react-toastify";
 
 interface Values {
   email: string;
@@ -26,7 +27,7 @@ const Login = () => {
     try {
       await tryLogin(email, password);
     } catch (error) {
-      //toast.error("Az email cím vagy a jelszó helytelen!");
+      toast.error("Error logging in, please try again!");
       console.error(error);
     }
   };

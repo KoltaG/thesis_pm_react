@@ -2,6 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/authContext/AuthContext";
 import Button from "../components/common/Button";
 import ArrowUpIcon from "../icons/ArrowUpIcon";
+import { useState } from "react";
+import ConfirmModal from "../components/common/ConfirmModal";
 
 interface PageHeaderProps {
   title: string;
@@ -25,6 +27,8 @@ const PageHeader = ({
   const { state } = useAuthContext();
   const currentUser = state.user;
 
+  const [isConfirmDeleteOpen, setIsConfirmDeleteOpne] = useState(false);
+
   return (
     <header className="mb-4">
       {location.pathname !== "/" && (
@@ -40,10 +44,9 @@ const PageHeader = ({
       <div className="flex items-center justify-between flex-wrap gap-2s">
         <h1 className="text-2xl font-bold">{title}</h1>
         <div className="flex items-center gap-4 mb-4">
-          {extraActions}
           {onDeleteClick && currentUser?.role !== "Dev" && (
             <Button
-              onClick={onDeleteClick}
+              onClick={() => setIsConfirmDeleteOpne(true)}
               variant="danger"
             >
               {deleteText}
@@ -57,8 +60,18 @@ const PageHeader = ({
               {addText}
             </Button>
           )}
+          {extraActions}
         </div>
       </div>
+      {onDeleteClick && (
+        <ConfirmModal
+          isOpen={isConfirmDeleteOpen}
+          setIsOpen={setIsConfirmDeleteOpne}
+          title="Delete Project"
+          onConfirm={onDeleteClick}
+          message="Are you sure you want to delete this project?"
+        />
+      )}
     </header>
   );
 };

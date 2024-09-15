@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../../context/authContext/AuthContext";
 import { useUserContext } from "../../context/userContext/UserContext";
 import Button from "../common/Button";
 import { format } from "date-fns";
+import ConfirmModal from "../common/ConfirmModal";
 
 const UserList = () => {
   const { state, fetchUsers, deleteUser } = useUserContext();
   const { state: authState } = useAuthContext();
+
+  const [confirmDeleteId, setConfrimDeleteId] = useState("");
 
   useEffect(() => {
     fetchUsers();
@@ -50,7 +53,7 @@ const UserList = () => {
             <div className="flex items-center gap-4">
               {authState.user?._id !== user._id && (
                 <Button
-                  onClick={() => handleDeleteUser(user._id)}
+                  onClick={() => setConfrimDeleteId(user._id)}
                   variant="danger"
                   className="px-3 py-1 text-sm rounded-md hover:bg-red-50 transition-colors"
                 >
@@ -58,6 +61,13 @@ const UserList = () => {
                 </Button>
               )}
             </div>
+            <ConfirmModal
+              isOpen={confirmDeleteId === user._id}
+              setIsOpen={(isOpen) => setConfrimDeleteId(isOpen ? user._id : "")}
+              title="Delete User"
+              onConfirm={() => handleDeleteUser(user._id)}
+              message="Are you sure you want to delete this user?"
+            />
           </li>
         ))}
       </ul>

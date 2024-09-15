@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAuthContext } from "../../context/authContext/AuthContext";
 import { useUserContext } from "../../context/userContext/UserContext";
 import Button from "../common/Button";
+import { format } from "date-fns";
 
 const UserList = () => {
   const { state, fetchUsers, deleteUser } = useUserContext();
@@ -21,6 +22,7 @@ const UserList = () => {
         <div className="flex items-center gap-6 flex-1">
           <div className="basis-[130px] text-gray-600 font-medium">Name</div>
           <div className="font-bold text-gray-600">Role</div>
+          <div className="font-bold text-gray-600">Registered</div>
         </div>
       </div>
 
@@ -40,6 +42,9 @@ const UserList = () => {
                 }`}
               >
                 {user.role}
+              </div>
+              <div className="basis-[130px] text-gray-800 font-medium">
+                {format(new Date(user.createdAt), "PP")}
               </div>
             </div>
             <div className="flex items-center gap-4">

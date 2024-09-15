@@ -5,7 +5,8 @@ export type User = {
   name: string;
   email: string;
   role: Role;
-  date: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type LoginResponse = {

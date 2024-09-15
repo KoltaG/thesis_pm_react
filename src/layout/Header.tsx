@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import IconHelper from "../components/common/IconHelper";
+import HamburgerIcon from "../icons/HamburgerIcon";
 
 interface HeaderProps {
   isNavbarOpen: boolean;
@@ -13,7 +13,7 @@ const Header = ({ isNavbarOpen, setIsNavbarOpen }: HeaderProps) => {
         className="text-black rounded border p-2 md:hidden"
         onClick={() => setIsNavbarOpen(!isNavbarOpen)}
       >
-        <IconHelper icon="hamburger" />
+        <HamburgerIcon className="w-6 h-6" />
       </button>
       <div className="flex flex-1 items-center gap-4">
         <Link to="/">

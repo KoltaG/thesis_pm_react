@@ -1,12 +1,12 @@
-import { IconProps } from "../components/common/IconHelper";
+export interface IconProps {
+  className?: string;
+}
 
-const ArrowUp = (props: IconProps) => (
+const ArrowUpIcon = ({ className }: IconProps) => (
   <svg
-    width={props.width || 32}
-    height={props.height || 32}
     fill="none"
     viewBox="0 0 32 32"
-    {...props}
+    className={className}
   >
     <path
       fill="currentColor"
@@ -17,4 +17,4 @@ const ArrowUp = (props: IconProps) => (
   </svg>
 );
 
-export default ArrowUp;
+export default ArrowUpIcon;

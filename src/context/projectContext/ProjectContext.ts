@@ -11,6 +11,8 @@ export interface Task {
   description?: string;
   assignedUser?: User;
   status: TaskStatus;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Project {

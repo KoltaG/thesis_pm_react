@@ -1,5 +1,6 @@
 import { Task, TaskStatus } from "../../context/projectContext/ProjectContext";
 import { useProjectContext } from "../../context/projectContext/ProjectContextProvider";
+import TrashCanIcon from "../../icons/TrashCanIcon";
 import Button from "../common/Button";
 
 interface TaskItemProps {
@@ -23,14 +24,14 @@ const TaskItem = ({ task }: TaskItemProps) => {
         task.status
       )} transition-transform transform hover:scale-105`}
     >
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-start justify-between mb-2">
         <h4 className="text-lg font-semibold text-gray-800">{task.name}</h4>
         <Button
           onClick={() => handleDeleteTask(task._id)}
           variant="text"
           className="!p-0"
         >
-          &times;
+          <TrashCanIcon className="w-4 h-4 " />
         </Button>
       </div>
       {task.description && (
@@ -41,15 +42,15 @@ const TaskItem = ({ task }: TaskItemProps) => {
 
       <div className="my-2">
         <p className="text-sm text-gray-500">
-          Felelős:
+          Assignee:
           <span className="text-gray-800 ml-1 text-sm font-bold">
             {task.assignedUser?.name}
           </span>
         </p>
       </div>
 
-      <div className="space-y-2">
-        <p className="text-sm text-gray-500">Státusz:</p>
+      <div className="flex flex-wrap gap-2 items-center">
+        <p className="text-sm text-gray-500">Status:</p>
         <div className="flex gap-2 items-center">
           <StatusButton
             label="To Do"
@@ -87,22 +88,22 @@ const StatusButton = ({
   color: "blue" | "yellow" | "green";
 }) => {
   const activeStyles = {
-    blue: "bg-blue-500 text-white",
-    yellow: "bg-yellow-500 text-white",
-    green: "bg-green-500 text-white",
+    blue: "bg-blue-500 !text-white",
+    yellow: "bg-yellow-500 !text-white",
+    green: "bg-green-500 !text-white",
   };
 
   const hoverStyles = {
-    blue: "hover:bg-blue-100 text-blue-500",
-    yellow: "hover:bg-yellow-100 text-yellow-500",
-    green: "hover:bg-green-100 text-green-500",
+    blue: "hover:bg-blue-100 !text-blue-500",
+    yellow: "hover:bg-yellow-100 !text-yellow-500",
+    green: "hover:bg-green-100 !text-green-500",
   };
 
   return (
     <Button
       onClick={onClick}
       variant="text"
-      className={`px-3 py-1 rounded-full ${
+      className={`px-3 pt-1 pb-1.5 rounded-full text-sm   ${
         active ? activeStyles[color] : hoverStyles[color]
       }`}
     >

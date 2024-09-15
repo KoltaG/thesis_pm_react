@@ -1,9 +1,7 @@
-import { IconProps } from "../components/common/IconHelper";
+import { IconProps } from "./ArrowUpIcon";
 
-const Hamburger = (props: IconProps) => (
+const HamburgerIcon = (props: IconProps) => (
   <svg
-    width={props.width || 22}
-    height={props.height || 15}
     viewBox="0 0 22 15"
     fill="none"
     {...props}
@@ -15,4 +13,4 @@ const Hamburger = (props: IconProps) => (
   </svg>
 );
 
-export default Hamburger;
+export default HamburgerIcon;

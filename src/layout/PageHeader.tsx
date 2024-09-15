@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import IconHelper from "../components/common/IconHelper";
 import { useAuthContext } from "../context/authContext/AuthContext";
 import Button from "../components/common/Button";
+import ArrowUpIcon from "../icons/ArrowUpIcon";
 
 interface PageHeaderProps {
   title: string;
@@ -33,14 +33,11 @@ const PageHeader = ({
           variant="text"
           className="!px-0"
         >
-          <IconHelper
-            icon="arrowUp"
-            iconProps={{ className: "-rotate-90 w-6 h-6" }}
-          />
+          <ArrowUpIcon className="w-6 h-6 -rotate-90" />
           Back
         </Button>
       )}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2s">
         <h1 className="text-2xl font-bold">{title}</h1>
         <div className="flex items-center gap-4 mb-4">
           {extraActions}

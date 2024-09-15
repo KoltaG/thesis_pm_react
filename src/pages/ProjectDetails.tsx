@@ -71,7 +71,7 @@ const ProjectDetails = () => {
         extraActions={userState.user?.role !== "Dev" && <RenderOpenUsers />}
       />
       <h1 className="text-2xl font-bold mb-4"></h1>
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap">
         <TaskList
           taskStatus="To Do"
           tasks={todoTasks}

@@ -17,7 +17,7 @@ const Navbar = () => {
       <nav className="flex-1">
         <ul>
           <Link to="/">
-            <li className="p-4 hover:bg-gray-700">Projects</li>
+            <li className="p-4 hover:bg-gray-700">Dashboard</li>
           </Link>
           {state.user?.role !== "Dev" && (
             <Link to="/user-management">

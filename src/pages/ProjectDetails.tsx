@@ -7,14 +7,16 @@ import { useAuthContext } from "../context/authContext/AuthContext";
 import Modal from "../components/common/Modal";
 import UserAssignList from "../components/user/UserAssignList";
 import Button from "../components/common/Button";
+import NewTaskForm from "../components/project/NewTaskForm";
 
 const ProjectDetails = () => {
   const { projectId } = useParams<{ projectId: string }>();
-  const { state, deleteProject, createTask } = useProjectContext();
+  const { state, deleteProject } = useProjectContext();
   const { state: userState } = useAuthContext();
   const navigate = useNavigate();
 
   const [isUsersOpen, setIsUsersOpen] = useState(false);
+  const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
 
   const project = state.projects.find((p) => p._id === projectId);
 
@@ -38,18 +40,6 @@ const ProjectDetails = () => {
     }
   };
 
-  const handleAddTask = async () => {
-    try {
-      await createTask(projectId ?? "", {
-        name: "New Task",
-        description: "Lorem ipsum dolor sit amet consectetur.",
-        status: "To Do",
-      });
-    } catch (error) {
-      console.error("Failed to delete project:", error);
-    }
-  };
-
   const RenderOpenUsers = (): React.ReactNode => {
     return (
       <Button
@@ -67,7 +57,7 @@ const ProjectDetails = () => {
         title={`Project: ${project.name}`}
         onDeleteClick={handleDeleteProject}
         addText="Create Task"
-        onAddClick={handleAddTask}
+        onAddClick={() => setIsCreateTaskOpen(true)}
         extraActions={userState.user?.role !== "Dev" && <RenderOpenUsers />}
       />
       <h1 className="text-2xl font-bold mb-4"></h1>
@@ -91,6 +81,16 @@ const ProjectDetails = () => {
         title="Project Users"
       >
         <UserAssignList projectId={project._id} />
+      </Modal>
+      <Modal
+        isOpen={isCreateTaskOpen}
+        setIsOpen={setIsCreateTaskOpen}
+        title="Add Task"
+      >
+        <NewTaskForm
+          projectId={project._id}
+          onSuccess={() => setIsCreateTaskOpen(false)}
+        />
       </Modal>
     </div>
   );

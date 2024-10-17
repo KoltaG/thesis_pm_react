@@ -25,19 +25,21 @@ const Modal = ({ isOpen, setIsOpen, title, children }: ModalProps) => {
         onClick={() => setIsOpen(false)}
       ></div>
 
-      <div className="bg-white relative rounded-lg shadow-lg p-6 w-full max-w-lg z-10">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-bold text-black">{title}</h3>
+      <div className="bg-white relative rounded-lg shadow-lg p-6 w-full max-w-lg z-10 max-h-[90vh] flex overflow-hidden">
+        <div className="flex-1 overflow-auto">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-bold text-black">{title}</h3>
 
-          <Button
-            onClick={() => setIsOpen(false)}
-            variant="text"
-            className="text-2xl absolute top-4 right-4"
-          >
-            &times;
-          </Button>
+            <Button
+              onClick={() => setIsOpen(false)}
+              variant="text"
+              className="text-2xl absolute top-4 right-4"
+            >
+              &times;
+            </Button>
+          </div>
+          <div>{children}</div>
         </div>
-        <div>{children}</div>
       </div>
     </div>
   );

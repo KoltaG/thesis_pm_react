@@ -26,6 +26,7 @@ const ValidationSchema = Yup.object().shape({
     500,
     "Description must be 500 characters or less."
   ),
+  assignedUserId: Yup.string().required("Assigned user is required!"),
 });
 
 interface NewTaskFormProps {
@@ -68,7 +69,7 @@ const NewTaskForm = ({ projectId, onSuccess }: NewTaskFormProps) => {
             setSubmitting(false);
           }}
         >
-          {({ isSubmitting, isValid }) => (
+          {({ isSubmitting, isValid, errors }) => (
             <Form className="space-y-4">
               <Field
                 name="name"
@@ -103,6 +104,11 @@ const NewTaskForm = ({ projectId, onSuccess }: NewTaskFormProps) => {
                     </option>
                   ))}
                 </Field>
+                {errors.assignedUserId && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.assignedUserId.toString()}
+                  </p>
+                )}
               </div>
               <Button
                 type="submit"

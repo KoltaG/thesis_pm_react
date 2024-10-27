@@ -24,9 +24,13 @@ const Dashboard = () => {
         addText="Add New Project"
       />
 
-      <h2 className="text-2xl font-bold mb-4">Metrics</h2>
-      <DashboardMetrics />
-      <DashboardGraph />
+      {authState.user?.role !== "Dev" && (
+        <>
+          <h2 className="text-2xl font-bold mb-4">Metrics</h2>
+          <DashboardMetrics />
+          <DashboardGraph />
+        </>
+      )}
 
       <h2 className="text-2xl font-bold mt-8">Projects</h2>
       <ProjectList />

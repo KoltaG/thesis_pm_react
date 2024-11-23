@@ -17,7 +17,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       dispatch({ type: "SET_USERS", payload: users });
     } catch (error) {
       console.error("Failed to fetch users:", error);
-      toast.error("Error fetching users.");
+      //toast.error("Error fetching users.");
     }
   };
 
